@@ -1,0 +1,6 @@
+*.DS_Store
+.env
+_*.*
+*.pyc
+*.log
+*.idea
