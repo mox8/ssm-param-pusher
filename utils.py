@@ -26,7 +26,7 @@ def get_env_dict(env_filename: str) -> dict:
         for line in f:
             if not line[0].isalpha():
                 continue
-            key, value = line.strip().split('=')
+            key, value = line.strip().split('=', maxsplit=1)
             env_dict[key] = value
 
     return env_dict
