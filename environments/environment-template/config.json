@@ -1,0 +1,11 @@
+{
+  "ENV_FILE_NAME": "",
+  "REGION_NAME": "",
+  "ACCESS_TOKEN": "",
+  "SECRET_ACCESS_KEY": "",
+  "VARIABLES_TYPE": "",
+  "OVERRIDE": true,
+  "NAMESPACE": "",
+  "STAGE": "",
+  "APP_NAME": ""
+}

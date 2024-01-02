@@ -1,4 +1,6 @@
 import logging
+import os
+import argparse
 
 from settings import (
     SettingsException,
@@ -14,6 +16,13 @@ logger = logging.getLogger()
 stream_handler = logging.StreamHandler()
 stream_handler.setLevel(logging.INFO)
 logger.addHandler(stream_handler)
+ENVIRONMENTS_DIR_NAME = 'environments'
+DEFAULT_CONFIG_FILENAME = 'config.json'
+DEFAULT_VARIABLES_FILENAME = 'vars.env'
+
+
+def get_environment_file(environment_name: str, filename: str = None) -> str:
+    return os.path.join(os.getcwd(), ENVIRONMENTS_DIR_NAME, environment_name, filename)
 
 
 class Runner:
@@ -36,7 +45,21 @@ class Runner:
 
 
 if __name__ == '__main__':
-    CONFIG_FILENAME = 'config.json'
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-e', '--environment', type=str, required=True)
+
+    args = parser.parse_args()
+    environment = args.environment
+
+    settings_file = get_environment_file(environment, DEFAULT_CONFIG_FILENAME)
+    variables_file = get_environment_file(environment, DEFAULT_VARIABLES_FILENAME)
+
+    if not os.path.exists(settings_file):
+        raise FileNotFoundError(f'File {settings_file} not found')
+
+    if not os.path.exists(variables_file):
+        raise FileNotFoundError(f'File {variables_file} not found')
+
     REQUIRED_CONFIG_PARAMS = [
         'ENV_FILE_NAME',
         'REGION_NAME',
@@ -47,7 +70,8 @@ if __name__ == '__main__':
     ]
 
     app_settings = Settings(
-        settings_filename=CONFIG_FILENAME,
+        full_settings_filename=settings_file,
+        full_variables_filename=variables_file,
         required_fields=REQUIRED_CONFIG_PARAMS,
     )
 

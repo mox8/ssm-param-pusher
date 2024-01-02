@@ -4,3 +4,7 @@ _*.*
 *.pyc
 *.log
 *.idea
+
+environments/*
+!environments/environment-template/
+!environments/environment-template/**

@@ -13,14 +13,15 @@ class SettingsException(Exception):
 
 
 class Settings:
-    def __init__(self, settings_filename: str, required_fields: list[str]):
-        full_settings_filename = os.path.join(os.getcwd(), settings_filename)
+    def __init__(self, full_settings_filename: str, required_fields: list[str], full_variables_filename: str = None):
         with open(full_settings_filename, 'r') as f:
             data = json.load(f)
             for k, v in data.items():
                 if v is not None:
                     setattr(self, k, v)
         self.validate_settings(required_fields=required_fields)
+        if full_variables_filename is not None:
+            self.ENV_FILE_NAME = full_variables_filename
         logger.info('Settings Valid')
 
     def validate_settings(self, required_fields: list[str]):
