@@ -8,9 +8,7 @@
 
 ## How to run:
 
-1. Edit `config.json` file to match you case
-2. Create `.env` file following the `.env.example` example
-3. Run the command below
+`python main.py -e <env-folder-name>`
 
 ```shell
 make push

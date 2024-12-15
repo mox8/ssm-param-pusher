@@ -77,7 +77,8 @@ class SsmParamPusher:
             )
             logger.info(f'Variable pushed: {variable_name}={variable_value}')
 
-        except Exception:
+        except Exception as e:
+            logger.info(f"Unexpected exceptions happened: {e}")
             raise SsmParamPusherParamException()
 
     def set_variables_from_file(self):
